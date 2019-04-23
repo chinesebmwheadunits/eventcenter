@@ -54,3 +54,7 @@ https://developer.android.com/studio/publish/app-signing
 
 The apk file will be in the patched directory and will be called patched-release.apk.
 Rename this file to EventCenter.apk
+
+## Installation
+
+You need a rooted rom with disabled signature verification to install the APK. Installation then is as simple as downloading the APK and installing it using normal methods.
