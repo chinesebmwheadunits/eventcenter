@@ -55,33 +55,6 @@ https://developer.android.com/studio/publish/app-signing
 The apk file will be in the patched directory and will be called patched-release.apk.
 Rename this file to EventCenter.apk
 
-## Installing the APK:
+## Installation
 
-You need a PC connected to the same WIFI as the Head Unit
-
-- Install Terminal Emulator in Head Unit (https://play.google.com/store/apps/d...roidterm&hl=es)
-- Open Terminal Emulator and write following commands:
-
-```
-setprop service.adb.tcp.port 5555
-ifconfig wlan0
-```
-
-This last command will show you the hu ip, remember it
-
-- Enable USB debugging in developer options in HU, if its enabled, disable and enable again.
-- Now in the pc you need ADB, and run following commands
-
-```
-adb connect 1.2.3.4:5555 (substitute 1.2.3.4 by the ip you found out earlier in terminal)
-adb shell
-su
-mount -o rw,remount -t ext4 /dev/block/platform/emmc/by-name/system /system
-rm /system/app/EventCenter.apk
-```
-
-Now go to settings in the unit -> Apps and force kill the EventCenter.apk App.
-
-Install the new EventCenter.apk from USB or memory card.
-
-Congratulations. You have a new patched EventCenter.apk
+You need a rooted rom with disabled signature verification to install the APK. Installation then is as simple as downloading the APK and installing it using normal methods.
