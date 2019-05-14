@@ -10,7 +10,7 @@ dependencies {
     // The source application is defined as a Gradle dependency.
 
     // It is defined either as an Android APK dependency:
-    //sourceApk fileTree(dir: 'apk', include: ['*.apk', '*.jar', '*.zip'])
+    sourceApk fileTree(dir: 'apk', include: ['*.apk', '*.jar', '*.zip'])
 
     // Or as a DexPatcher APK library dependency:
     //sourceApkLibrary fileTree(dir: 'apklib', include: ['*.apklib'])
@@ -59,6 +59,7 @@ dexpatcherConfig {
         //apiLevel = 14
         //keepBrokenResources = true
         //stripDebugInfo = true
+        copyOriginal = true
     }
 
     // Dex2jar Task Defaults
@@ -110,7 +111,7 @@ dexpatcherConfig {
 
         // The verbosity of the DexPatcher tool. One of QUIET, NORMAL, VERBOSE or DEBUG.
         // Defaults to NORMAL, but VERBOSE is recommended.
-        verbosity = VERBOSE
+        verbosity = DEBUG
 
         // Enable logging of relative paths of source files instead of just their filename.
         //logSourcePath = true
@@ -124,7 +125,7 @@ dexpatcherConfig {
 }
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 27
     //buildToolsVersion '28.0.3'
 
     defaultConfig {
@@ -137,7 +138,7 @@ android {
         // You must set these fields to match or be compatible with the corresponding data
         // of the source app. (Data is displayed when the source apk library is built.)
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName '1.0'
     }
@@ -149,17 +150,7 @@ android {
 }
 
 dependencies {
-    // We import an Android library, a file chooser, just for fun. This pulls in all its
-    // resources that will be transparently merged, like other resources from this project,
-    // with those of the source app. Each component will have its own independent 'R' class.
-    // The numeric IDs of the resources coming from the source app will be kept constant.
-    implementation('ru.bartwell:exfilepicker:1.8') {
-        // But the imported library has a transitive dependency on a module that is already
-        // present in the source app. So we exclude it from the import, keeping the source
-        // app's version. Alternatively we could delete the copy brought in by the source
-        // app using DexPatcher package annotations.
-        exclude module: 'support-v4'
-    }
+
 }
 
 void disableLintTasks(boolean disableTasks) {

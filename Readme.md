@@ -55,6 +55,14 @@ https://developer.android.com/studio/publish/app-signing
 The apk file will be in the patched directory and will be called patched-release.apk.
 Rename this file to EventCenter.apk
 
+## Replacing the Android 27 android.jar in the SDK to include hidden methods.
+
+The original EventCenter.apk uses internal classes and methods of the Android API
+to do certain stuff. You need an android.jar in your SDK directory to be able to compile
+this source code. You can find instructions and a howto here:
+
+https://github.com/anggrayudi/android-hidden-api
+
 ## Installation
 
 You need a rooted rom with disabled signature verification to install the APK. Installation then is as simple as downloading the APK and installing it using normal methods.
