@@ -3,5 +3,13 @@
     <!--Source and patched manifests are merged according to standard build rules:
         http://tools.android.com/tech-docs/new-build-system/user-guide/manifest-merger -->
 
+    <uses-permission
+        android:name="android.permission.FAKE_PACKAGE_SIGNATURE"/>
 
+    <application>
+        <meta-data
+            android:name="fake-signature"
+            android:value="@string/fake_signature"/>
+
+    </application>
 </manifest>
