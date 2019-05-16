@@ -5,6 +5,8 @@ Ugode (or similar) Android BMW Head unit to remove it's process
 killing abilities. These head units are severely crippled as
 any process that is not a foreground process is automatically
 killed.
+Also Navigation applications play through the left front speaker,
+instead of all speakers. These patches fix that.
 
 ## Getting The original APK from the device
 
