@@ -147,6 +147,14 @@ android {
         disableLintTasks true
         //checkReleaseBuilds false
     }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+        }
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
 }
 
 dependencies {
