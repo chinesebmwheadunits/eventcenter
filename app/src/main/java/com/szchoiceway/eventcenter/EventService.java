@@ -53,4 +53,14 @@ public class EventService extends Service implements View.OnLongClickListener, V
 
         }
     }
+
+    @DexIgnore
+    public void SendBlackState(boolean bBlack) {
+
+    }
+
+    @DexIgnore
+    public void SendBLVal(byte iBLVal, byte iNBLVal) {
+
+    }
 }
