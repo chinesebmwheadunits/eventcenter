@@ -35,9 +35,9 @@ public class EvtModel extends BroadcastReceiver {
 
                 this.mContext.SendBlackState(false);
                 this.mContext.SendBLVal((byte) percentage, (byte) 0);
-            } else {
-                onReceive(context, intent);
+                return;
             }
         }
+        onReceive(context, intent);
     }
 }
