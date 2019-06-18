@@ -27,17 +27,16 @@ public class EvtModel extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
-
-        if (action.equals("com.android.quicksetting.BROADCAST")) {
+        if (action != null && action.equals("com.android.quicksetting.BROADCAST")) {
             String StrTmp = intent.getStringExtra(NotificationCompat.CATEGORY_MESSAGE);
             if (StrTmp.equals("backlightPercent")) {
                 int percentage = intent.getIntExtra("percentage", 100);
 
                 this.mContext.SendBlackState(false);
                 this.mContext.SendBLVal((byte) percentage, (byte) 0);
-            } else {
-                onReceive(context, intent);
+                return;
             }
         }
+        onReceive(context, intent);
     }
 }
