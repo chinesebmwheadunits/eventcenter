@@ -35,6 +35,16 @@ public class EventService extends Service implements View.OnLongClickListener, V
     public SysProviderOpt mSysProviderOpt;
 
     @DexIgnore
+    private String[] mapApkLst;
+
+    @DexAdd
+    public String[] getMapApkList()
+    {
+        return this.mapApkLst;
+    }
+
+
+    @DexIgnore
     @Override
     public IBinder onBind(Intent intent) {
         return null;

@@ -23,5 +23,7 @@ public class EventCenterHttpServer extends RouterNanoHTTPD {
     public void addMappings() {
         super.addMappings();
         addRoute("/settings", SettingsHandler.class, this.eventService.mSysProviderOpt);
+        addRoute("/navigationapps", NavigationAppsHandler.class, this.eventService);
+        addRoute("/navigationapps/:package_name/icon", NavigationAppsHandler.class, this.eventService);
     }
 }
