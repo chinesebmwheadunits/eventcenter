@@ -6,7 +6,7 @@ killing abilities. These head units are severely crippled as
 any process that is not a foreground process is automatically
 killed.
 Also Navigation applications play through the left front speaker,
-instead of all speakers. These patches fix that.
+instead of all speakers. These patches fix that. It's only valid for **Android 7.1** head units.
 
 ## Getting The original APK from the device
 

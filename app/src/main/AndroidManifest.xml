@@ -4,7 +4,7 @@
         http://tools.android.com/tech-docs/new-build-system/user-guide/manifest-merger -->
 
     <uses-permission
-        android:name="android.permission.FAKE_PACKAGE_SIGNATURE" android:protectionLevel="signature|privileged" tools:node="replace" />
+        android:name="android.permission.FAKE_PACKAGE_SIGNATURE" android:protectionLevel="signature|privileged" />
 
     <application>
         <meta-data
