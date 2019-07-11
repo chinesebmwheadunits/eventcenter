@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -18,6 +19,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +58,7 @@ public class NavigationAppsHandler extends RouterNanoHTTPD.DefaultHandler {
             return false;
         }
         for (int loop = 0; loop < mapApkList.length; loop++) {
-            if (pkgName.startsWith(mapApkList[loop])) {
+            if (pkgName.equals(mapApkList[loop])) {
                 return true;
             }
         }
@@ -181,5 +183,33 @@ public class NavigationAppsHandler extends RouterNanoHTTPD.DefaultHandler {
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
         return bitmap;
+    }
+
+    @Override
+    public NanoHTTPD.Response post(RouterNanoHTTPD.UriResource uriResource, Map<String, String> urlParams, NanoHTTPD.IHTTPSession session) {
+        eventService = uriResource.initParameter(EventService.class);
+        try {
+            Gson gson = new Gson();
+            Map<String, String> files = new HashMap<String, String>();
+            session.parseBody(files);
+            String postData = files.get("postData");
+            Log.i("postData", postData);
+            NavigationApp[] navigationApps = gson.fromJson(postData, NavigationApp[].class);
+
+            ArrayList<String> navigationAppsToWrite = new ArrayList<String>();
+
+            for (NavigationApp navigationApp : navigationApps) {
+                if (navigationApp.enabled)
+                {
+                    navigationAppsToWrite.add(navigationApp._package);
+                }
+            }
+
+            this.eventService.writeApkList(navigationAppsToWrite);
+
+            return get(uriResource, urlParams, session);
+        } catch (Exception e) {
+            return NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.BAD_REQUEST, "text/html", "<html><body><h3>Error 400: Bad Request.</h3><p>" + e.getMessage() + "</p></body></html>");
+        }
     }
 }

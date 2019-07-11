@@ -7,10 +7,15 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.chinesebmwheadunits.eventcenter.EventCenterHttpServer;
+import io.chinesebmwheadunits.eventcenter.NavigationAppsHandler;
 import lanchon.dexpatcher.annotation.DexAction;
 import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
@@ -21,6 +26,9 @@ import static io.chinesebmwheadunits.eventcenter.SettingsHandler.IO_C_BMW_HU_TEL
 
 @DexEdit
 public class EventService extends Service implements View.OnLongClickListener, View.OnClickListener {
+
+    @DexIgnore
+    private String ksw_map_apk_list_data_local_path;
 
     @DexIgnore
     public EventService()
@@ -43,6 +51,9 @@ public class EventService extends Service implements View.OnLongClickListener, V
         return this.mapApkLst;
     }
 
+    @DexIgnore
+    private void ksw_set_mapApkLst() {
+    }
 
     @DexIgnore
     @Override
@@ -60,6 +71,24 @@ public class EventService extends Service implements View.OnLongClickListener, V
     @Override
     public boolean onLongClick(View v) {
         return false;
+    }
+
+    @DexAdd
+    /**
+     * Write an array of strings to the APK list.
+     */
+    public void writeApkList(ArrayList<String> navigationAppsToWrite) {
+        File file_mapApkLst = new File(this.ksw_map_apk_list_data_local_path);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file_mapApkLst))) {
+            for (String line : navigationAppsToWrite) {
+                writer.append(line);
+                writer.newLine();
+            }
+            this.mapApkLst = (String[]) navigationAppsToWrite.toArray();
+        } catch (IOException e) {
+            Log.e("EventService", "Error writing APK list ", e);
+        }
     }
 
     @DexIgnore
